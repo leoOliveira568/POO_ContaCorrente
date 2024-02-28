@@ -1,0 +1,49 @@
+class ContaCorrente {
+    // Atributos da classe
+    String nome;
+    int senha;
+    String dadosConta;
+    float saldo;
+    
+    // Métodos
+    public void sacar(float valor) {
+        if (saldo >= valor) {
+            saldo -= valor;
+            System.out.println("Após o saque, seu saldo é: " + saldo);
+        } else {
+            System.out.println("Saldo insuficiente para sacar.");
+        }
+    }
+
+    public void depositar(float valor) {
+        saldo += valor;
+        System.out.println("Após o depósito, seu saldo é: " + saldo);
+    }
+
+    public void transferir(float valor, ContaCorrente destino) {
+        if (saldo >= valor) {
+            saldo -= valor;
+            destino.depositar(valor);
+            System.out.println("Transferência realizada com sucesso.");
+        } else {
+            System.out.println("Saldo insuficiente para transferir.");
+        }
+    }
+
+    public static void main(String[] args) {
+        ContaCorrente conta = new ContaCorrente();
+        conta.nome = "Leonardo";
+        conta.senha = 5432;
+        conta.dadosConta = "25969463-8";
+        conta.saldo = 6000;
+        
+        conta.sacar(2500);
+        conta.depositar(3000);
+        
+        ContaCorrente contaDestino = new ContaCorrente();
+        contaDestino.nome = "Carla";
+        contaDestino.saldo = 4000;
+        
+        conta.transferir(1000, contaDestino);
+    }
+}
