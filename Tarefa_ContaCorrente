@@ -4,29 +4,33 @@ class ContaCorrente {
     int senha;
     String dadosConta;
     float saldo;
-    
+
     // Métodos
     public void sacar(float valor) {
-        if (saldo >= valor) {
+        if (valor > 0 && saldo >= valor) {
             saldo -= valor;
             System.out.println("Depois do saque, seu saldo é: " + saldo);
         } else {
-            System.out.println("Saldo insuficiente para sacar.");
+            System.out.println("Valor inválido para saque ou saldo insuficiente.");
         }
     }
 
     public void depositar(float valor) {
-        saldo += valor;
-        System.out.println("Depois do depósito, seu saldo é: " + saldo);
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Depois do depósito, seu saldo é: " + saldo);
+        } else {
+            System.out.println("Valor inválido para depósito.");
+        }
     }
 
     public void transferir(float valor, ContaCorrente destino) {
-        if (saldo >= valor) {
+        if (valor > 0 && saldo >= valor) {
             saldo -= valor;
             destino.depositar(valor);
-            System.out.println("Transferência realizada com exito.");
+            System.out.println("Transferência realizada com êxito.");
         } else {
-            System.out.println("Saldo insuficiente para transferir.");
+            System.out.println("Valor inválido para transferência ou saldo insuficiente.");
         }
     }
 
@@ -36,14 +40,14 @@ class ContaCorrente {
         conta.senha = 5432;
         conta.dadosConta = "22969463-8";
         conta.saldo = 6000;
-        
+
         conta.sacar(2500);
         conta.depositar(3000);
-        
+
         ContaCorrente contaDestino = new ContaCorrente();
         contaDestino.nome = "Carla";
         contaDestino.saldo = 4000;
-        
+
         conta.transferir(1000, contaDestino);
     }
 }
